@@ -9,8 +9,6 @@ using System.ComponentModel.DataAnnotations;
 
         public String Email{get; set;}
 
-        // public String Cpf{get; set;}
-
         public String Cell{get; set;}
         public String PA{get; set;}
     }
