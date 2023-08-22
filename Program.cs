@@ -2,12 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options => {
 options.AddPolicy("AllowLocalHost", policy => {
-    policy.WithOrigins("http://localhost:5500", "http://127.0.0.1:5500", "localhost/:1")
+    policy.WithOrigins("http://localhost:5500", "http://127.0.0.1:5500", "localhost/:1", "http://localhost", "192.168.32.10", "http://192.168.32.10", "192.168.32.10:80", "http://192.168.32.10:80", "http://192.168.32.10:85", "192.168.32.10:85")
         .SetIsOriginAllowed(_ => true)
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
 });
+
 
 // Add services to the container.
 

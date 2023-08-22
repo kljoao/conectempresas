@@ -69,9 +69,9 @@ public IActionResult GetFormData()
     }
 }
 
-[HttpDelete]
+[HttpGet]
 [Route("{ramal}")]
-public IActionResult DeleteFormData(string ramal)
+public IActionResult GetFormDataByRamal(string ramal)
 {
     try
     {
@@ -85,7 +85,42 @@ public IActionResult DeleteFormData(string ramal)
 
             if (formData != null)
             {
-                formDataList.Remove(formData);
+                return Ok(formData);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);
+    }
+}
+
+
+[HttpDelete]
+[Route("{ramal}")]
+public IActionResult DeleteFormData(string ramal)
+{
+    try
+    {
+        if (System.IO.File.Exists(FilePath))
+        {
+            var formDataJson = System.IO.File.ReadAllText(FilePath);
+            var formDataList = JsonConvert.DeserializeObject<List<FormData>>(formDataJson);
+
+            // Procura o formulário com o ramal especificado
+            var formDataToRemove = formDataList.FirstOrDefault(formDataItem => formDataItem.Ramal == Convert.ToInt32(ramal));
+
+            if (formDataToRemove != null)
+            {
+                formDataList.Remove(formDataToRemove);
 
                 var updatedFormDataJson = JsonConvert.SerializeObject(formDataList);
                 System.IO.File.WriteAllText(FilePath, updatedFormDataJson);
@@ -107,6 +142,7 @@ public IActionResult DeleteFormData(string ramal)
         return StatusCode(500, ex.Message);
     }
 }
+
 
 [HttpPut]
 [Route("{ramal}")]

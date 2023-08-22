@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
         [Key]
         public int Ramal{get; set;}
+
         public String Nome{get; set;}
 
         public String Setor{get; set;}
@@ -10,5 +11,6 @@ using System.ComponentModel.DataAnnotations;
         public String Email{get; set;}
 
         public String Cell{get; set;}
+        
         public String PA{get; set;}
     }
